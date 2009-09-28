@@ -1,0 +1,4 @@
+.DS_Store
+public/cache
+tmp/
+doc/rdoc/
