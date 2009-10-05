@@ -8,10 +8,14 @@ class Publisher::Views::Default < Hoshi::View[:html4_transitional]
   
   def initialize( request )
     @request = request; super
-    file = :db / domain / :theme / singular + '.rb'
+    [ singular, :default ].each { |mixin| site_mixin( mixin ) }
+  end
+  
+  def site_mixin( name )
+    file = :db / domain / :theme / name + '.rb'
     extend( eval( File.read( file ) ) ) if File.exist?( file ) 
   end
-    
+  
   def stylesheet( *paths )
     paths.each do |path|
       href = ( path =~ /^http/ ? path : "/css/#{path}.css" )

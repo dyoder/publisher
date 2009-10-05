@@ -15,5 +15,13 @@ class Publisher::Models::Default
   def self.associate( domain ) ; end
 
   def name ; get( :key ) ; end
+  
+  def tags
+    case tags = get(:tags)
+    when Array then tags
+    when String then tags.split(',').map(&:strip)
+    else []
+    end
+  end
 
 end
