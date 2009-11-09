@@ -5,17 +5,21 @@ class Publisher::Models::Default
 
   include Publisher::ResponseMixin
 
+  class << self ; attr_accessor :domain ; end
+
   def self.[]( domain )
     Class.new( self ) do
       include( Filebase::Model[ :db / domain / superclass.basename.snake_case ] )
-      associate( domain )
+      @domain = domain
     end
   end
 
-  def self.associate( domain ) ; end
+  # override these from the response mixin
+  def app ; Publisher ; end
+  def domain ; self.class.domain ; end
 
   def name ; get( :key ) ; end
-  
+
   def tags
     case tags = get(:tags)
     when Array then tags
