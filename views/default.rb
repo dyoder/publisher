@@ -1,3 +1,5 @@
+require 'lib/hoshi'
+
 class Publisher::Views::Default < Hoshi::View[:html4_transitional]
 
   include Waves::Views::Mixin
@@ -35,5 +37,5 @@ class Publisher::Views::Default < Hoshi::View[:html4_transitional]
     content ||= site
     view(:layout).send( content.layout, content, &block )
   end
-
+  
 end

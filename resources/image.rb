@@ -5,7 +5,7 @@ class Publisher::Resources::Image < Publisher::Resources::Default
   include Waves::Resources::FileMixin
   
   on( :get, :get => [ 'image', { :path => true } ] ) {
-    path = captured.path.join('/') + request.extension
+    path = captured.path.join('/') + ( request.extension || '' )
     load_dynamic( path ) || load_from_site( path ) || load_from_public( path ) || not_found
   }
 
@@ -20,7 +20,7 @@ class Publisher::Resources::Image < Publisher::Resources::Default
   end
 
   def load_from_public( path )
-    load_from_file( "public/images/#{path}" )
+    load_from_file( "public/image/#{path}" )
   end
 
   
